@@ -10,6 +10,12 @@ export const resMessage = {
     USER_NOT_FOUND: "You don't have an account yet. Please sign up first!",
     INCORRECT_PASSWORD: "Invalid password. Please re-enter your password!",
     LOGIN_SUCCESS: "Hello Admin You're logged in successfully!",
+    ADD_ENTERPRISE_LOGO: "Enterprise logo has been added to your trusted brands section.",
+    LOGO_LIST: "Enterprise logos list fetched successfully!",
+    DELETE_LOGO: "Enterprise logo deleted successfully! It has been removed from your list.",
+    PHOTO_UPLOAD_SUCCESS: "Photo(s) uploaded successfully.",
+    INTERNAL_SERVER_ERROR: "Something went wrong. Please try again.",
+
 
 };
 
@@ -33,4 +39,7 @@ export const resStatusCode = {
 
 export const dbTableName = {
     AUTH: "auths",
+    HOME_ENTERPRISE_LOGO: "home_enterprise_logos",
+    HOME_PHOTO: "home_img_vdo"
+
 };

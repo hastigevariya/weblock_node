@@ -7,7 +7,7 @@ import response from "../utils/response.js";
 import { resStatusCode, resMessage } from "../utils/constants.js";
 import { generateJWToken } from "../middleware/auth.js";
 import { hash, compare } from "bcrypt";
-import { adminService } from "../service/authservice.js";
+import { adminService } from "../services/authservice.js";
 
 export const register = async (req, res) => {
     const { email, password } = req.body;
