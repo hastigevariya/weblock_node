@@ -64,6 +64,23 @@ export const teamPhotoUpload = multer({
     limits: { fileSize: 2 * 1024 * 1024 }, // 2MB size limit
 }).single("photo");
 
+// reviewStorage
+const reviewStorage = diskStorage({
+    destination: function (req, file, cb) {
+        const dir = './public/review';
+        mkdir(dir, { recursive: true }, (err) => cb(err, dir));
+    },
+    filename: function (req, file, cb) {
+        const ext = path.extname(file.originalname);
+        const first4Chars = file.originalname.slice(0, 4);
+        cb(null, `${Date.now()}-review-${first4Chars}${ext}`);
+    }
+});
+
+export const reviewPhotoUpload = multer({
+    storage: reviewStorage,
+    limits: { fileSize: 2 * 1024 * 1024 }, // optional size limit
+}).single("photo");
 
 
 

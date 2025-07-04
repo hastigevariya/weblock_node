@@ -18,6 +18,7 @@ export const resMessage = {
     DELETE_IMAGE_VIDEO: "Image Or Video deleted successfully! It has been removed from your list.",
     NO_ACTIVE_ABOUT_MEDIA: "No active about media found",
     FETCHED: "Fetched successfully",
+    ADD_REVIEW_SUCCESS: "Review added successfully.",
 
 };
 
@@ -44,7 +45,8 @@ export const dbTableName = {
     HOME_ENTERPRISE_LOGO: "home_enterprise_logos",
     HOME_PHOTO: "home_img_vdo",
     ABOUT_VID: "about_vid",
-    TEAM: "team"
+    TEAM: "team",
+    REVIEW: "review"
 };
 
 
