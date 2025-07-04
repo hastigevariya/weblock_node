@@ -1,9 +1,11 @@
 import { Router } from "express";
 const router = Router();
-import { addHomeImgVdo } from "../controllers/homecontroller.js";
+import { addHomeImgVdo, getAllHomeImgVdo, deleteHomeImgVdo } from "../controllers/homecontroller.js";
 import { homeImgVdo } from "../utils/multer.js";
 import { validateAccessToken } from "../middleware/auth.js";
 
 router.post("/addHomeImgVdo", homeImgVdo, validateAccessToken, addHomeImgVdo);
+router.get("/getAllHomeImgVdo", validateAccessToken, getAllHomeImgVdo);
+router.get("/deleteHomeImgVdo", validateAccessToken, deleteHomeImgVdo);
 
 export default router;

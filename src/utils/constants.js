@@ -14,8 +14,10 @@ export const resMessage = {
     LOGO_LIST: "Enterprise logos list fetched successfully!",
     DELETE_LOGO: "Enterprise logo deleted successfully! It has been removed from your list.",
     PHOTO_UPLOAD_SUCCESS: "Photo(s) uploaded successfully.",
-    INTERNAL_SERVER_ERROR: "Something went wrong. Please try again.",
-
+    IMAGE_VIDEO_LIST: "Home Page Image Or Video list fetched successfully!",
+    DELETE_IMAGE_VIDEO: "Image Or Video deleted successfully! It has been removed from your list.",
+    NO_ACTIVE_ABOUT_MEDIA: "No active about media found",
+    FETCHED: "Fetched successfully",
 
 };
 
@@ -40,6 +42,9 @@ export const resStatusCode = {
 export const dbTableName = {
     AUTH: "auths",
     HOME_ENTERPRISE_LOGO: "home_enterprise_logos",
-    HOME_PHOTO: "home_img_vdo"
-
+    HOME_PHOTO: "home_img_vdo",
+    ABOUT_VID: "about_vid",
+    TEAM: "team"
 };
+
+

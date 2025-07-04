@@ -31,6 +31,26 @@ export class homeService {
             return (error);
         };
     };
+    static async getAllHomeImgVdo(data) {
+        try {
+            const getAll = await homeImgVdoModel.get(data).sort({ createdAt: -1 });
+            return (getAll);
+        } catch (error) {
+            return (error);
+        };
+    };
+    static async deleteHomeImgVdo(data) {
+        try {
+            const deleted = await homeImgVdoModel.findByIdAndUpdate(
+                { _id: data },
+                { isActive: false },
+                { new: false, runValidators: true }
+            );
+            return (deleted);
+        } catch (error) {
+            return (error);
+        };
+    };
 };
 
 

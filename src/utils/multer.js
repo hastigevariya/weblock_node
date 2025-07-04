@@ -33,6 +33,38 @@ export const homeImgVdo = multer({
 }).single('media')
 
 
+const aboutMediaStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const dir = './public/aboutMedia';
+        mkdir(dir, { recursive: true }, (err) => cb(err, dir));
+    },
+    filename: function (req, file, cb) {
+        const ext = path.extname(file.originalname);
+        const first4Chars = file.originalname.slice(0, 4);
+        cb(null, `${Date.now()}-about-img-vdo-${first4Chars}${ext}`);
+    }
+});
+export const aboutImgVdo = multer({
+    storage: aboutMediaStorage,
+}).single("media");
+
+const teamStorage = diskStorage({
+    destination: function (req, file, cb) {
+        const dir = './public/teamMember';
+        mkdir(dir, { recursive: true }, (err) => cb(err, dir));
+    },
+    filename: function (req, file, cb) {
+        const ext = path.extname(file.originalname);
+        cb(null, `${Date.now()}-${file.originalname.slice(0, 4)}${ext}`);
+    },
+});
+
+export const teamPhotoUpload = multer({
+    storage: teamStorage,
+    limits: { fileSize: 2 * 1024 * 1024 }, // 2MB size limit
+}).single("photo");
+
+
 
 
 
