@@ -8,6 +8,7 @@ import teamRoutes from "../routes/teamRoutes.js"
 import review from "../routes/reviewRoutes.js"
 import portfolio from "../routes/portfolioRoutes.js"
 import career from "../routes/careerRoutrs.js";
+import addjobapplication from "../routes/addJobApplicationRoutes.js"
 
 
 const router = Router();
@@ -18,6 +19,7 @@ router.use("/about", aboutRoutes);
 router.use("/team", teamRoutes);
 router.use("/review", review);
 router.use("/portfolio", portfolio);
-router.use("/career", career)
+router.use("/career", career);
+router.use("/addjobapplication", addjobapplication)
 
 export default router;

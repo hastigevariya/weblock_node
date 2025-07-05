@@ -49,7 +49,8 @@ export const dbTableName = {
     TEAM: "team",
     REVIEW: "review",
     PORTFOLIO: "portfolio",
-    CAREER: "career"
+    CAREER: "career",
+    JOB_APPLICATION: "jobapplication"
 };
 
 

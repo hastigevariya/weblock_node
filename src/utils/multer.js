@@ -103,6 +103,30 @@ export const portfolioPhotoUpload = multer({
     { name: "mainImage", maxCount: 1 }
 ]);
 
+// Job Application Storage
+const jobApplicationStorage = diskStorage({
+    destination: function (req, file, cb) {
+        const dir = './public/jobApplications';  // Follow your structure
+        mkdir(dir, { recursive: true }, (err) => cb(err, dir));
+    },
+    filename: function (req, file, cb) {
+        const ext = path.extname(file.originalname);
+        const first4Chars = file.originalname.slice(0, 4);
+        cb(null, `${Date.now()}-jobapp-${first4Chars}${ext}`);
+    }
+});
+
+const jobAppFileFilter = (req, file, cb) => {
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+    if (allowedTypes.includes(file.mimetype)) cb(null, true);
+    else cb(new Error("Only PDF, JPEG, PNG files are allowed"), false);
+};
+
+export const jobAppUpload = multer({
+    storage: jobApplicationStorage,
+    fileFilter: jobAppFileFilter,
+    limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
+}).single("file");  // field name must match in form-data
 
 
 
