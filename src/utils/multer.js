@@ -82,6 +82,26 @@ export const reviewPhotoUpload = multer({
     limits: { fileSize: 2 * 1024 * 1024 }, // optional size limit
 }).single("photo");
 
+// Portfolio Storage
+const portfolioStorage = diskStorage({
+    destination: function (req, file, cb) {
+        const dir = './public/portfolio';
+        mkdir(dir, { recursive: true }, (err) => cb(err, dir));
+    },
+    filename: function (req, file, cb) {
+        const ext = path.extname(file.originalname);
+        const first4Chars = file.originalname.slice(0, 4);
+        cb(null, `${Date.now()}-portfolio-${first4Chars}${ext}`);
+    }
+});
+
+export const portfolioPhotoUpload = multer({
+    storage: portfolioStorage,
+    limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
+}).fields([
+    { name: "image", maxCount: 1 },
+    { name: "mainImage", maxCount: 1 }
+]);
 
 
 

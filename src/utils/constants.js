@@ -19,6 +19,7 @@ export const resMessage = {
     NO_ACTIVE_ABOUT_MEDIA: "No active about media found",
     FETCHED: "Fetched successfully",
     ADD_REVIEW_SUCCESS: "Review added successfully.",
+    ADD_PORTFOLIO_SUCCESS: "Portfolio added successfully.",
 
 };
 
@@ -46,7 +47,9 @@ export const dbTableName = {
     HOME_PHOTO: "home_img_vdo",
     ABOUT_VID: "about_vid",
     TEAM: "team",
-    REVIEW: "review"
+    REVIEW: "review",
+    PORTFOLIO: "portfolio",
+    CAREER: "career"
 };
 
 
