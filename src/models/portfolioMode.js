@@ -15,35 +15,26 @@ const portfolioSchema = new Schema({
 export const Portfolio = model(dbTableName.PORTFOLIO, portfolioSchema);
 
 export const portfolioValidation = Joi.object({
-    image: Joi.string()
-        .required()
-        .messages({
-            "string.base": `"image" must be a string`,
-            "any.required": `"image" is a required field`,
-        }),
-    mainImage: Joi.string()
-        .required()
-        .messages({
-            "string.base": `"mainImage" must be a string`,
-            "any.required": `"mainImage" is a required field`,
-        }),
-    title: Joi.string()
-        .required()
-        .messages({
-            "string.base": `"title" must be a string`,
-            "any.required": `"title" is a required field`,
-        }),
-    paragraph: Joi.string()
-        .required()
-        .messages({
-            "string.base": `"paragraph" must be a string`,
-            "any.required": `"paragraph" is a required field`,
-        }),
-    features: Joi.array()
-        .items(Joi.string().messages({ "string.base": `"features" items must be strings` }))
-        .required()
-        .messages({
-            "array.base": `"features" must be an array of strings`,
-            "any.required": `"features" is a required field`,
-        }),
+    image: Joi.string().required().messages({
+        "string.base": `"image" must be a string`,
+        "any.required": `"image" is a required field`,
+    }),
+    mainImage: Joi.string().required().messages({
+        "string.base": `"mainImage" must be a string`,
+        "any.required": `"mainImage" is a required field`,
+    }),
+    title: Joi.string().required().messages({
+        "string.base": `"title" must be a string`,
+        "any.required": `"title" is a required field`,
+    }),
+    paragraph: Joi.string().required().messages({
+        "string.base": `"paragraph" must be a string`,
+        "any.required": `"paragraph" is a required field`,
+    }),
+    features: Joi.array().items(Joi.string().messages({
+        "string.base": `"features" items must be strings`
+    })).required().messages({
+        "array.base": `"features" must be an array of strings`,
+        "any.required": `"features" is a required field`,
+    }),
 });

@@ -18,12 +18,3 @@ export const aboutValidation = Joi.object({
         "any.required": "Media type is required",
     }),
 });
-export const idValidation = Joi.object({
-    id: Joi.string().length(24).hex().required().messages({
-        "string.base": "ID must be a string",
-        "string.empty": "ID is required",
-        "string.length": "ID must be exactly 24 characters",
-        "string.hex": "ID must be a valid hexadecimal string",
-        "any.required": "ID is required",
-    }),
-});

@@ -51,8 +51,8 @@ export const deleteHomeImgVdo = async (req, res) => {
         return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
     };
     try {
-        const homeImgVdo = await homeService.deleteHomeImgVdo({ id });
-        return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.DELETE_IMAGE_VIDEO, homeImgVdo);
+        await homeService.deleteHomeImgVdo({ id });
+        return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.DELETE_IMAGE_VIDEO, {});
     } catch (error) {
         console.error('Error in deleteHomeImgVdo:', error);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});

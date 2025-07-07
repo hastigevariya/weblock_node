@@ -13,58 +13,45 @@ export const addPortfolio = async (req, res) => {
             try {
                 req.body.features = JSON.parse(req.body.features);
             } catch (err) {
-                return response.error(res, resStatusCode.CLIENT_ERROR, `"features" must be a valid JSON array`, {});
-            }
-        }
+                return response.error(res, resStatusCode.CLIENT_ERROR, resMessage.INVALID_FEATURES_JSON, {});
+            };
+        };
         const { error } = portfolioValidation.validate(req.body);
         if (error) {
             return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
-        }
-
+        };
         const newPortfolio = await portfolioService.addPortfolio(req.body);
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.ADD_PORTFOLIO_SUCCESS, newPortfolio);
     } catch (err) {
         console.error("Error in addPortfolio:", err);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
-    }
+    };
 };
-
 export const getAllPortfolio = async (req, res) => {
     try {
         const data = await portfolioService.getAllPortfolio();
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, data);
     } catch (err) {
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
-    }
+    };
 };
 export const getPortfolioById = async (req, res) => {
     try {
         const { id } = req.params;
-        const data = await portfolioService.getPortfolioById(id);
-
-        if (!data || data.isActive === false) {
-            return response.error(res, resStatusCode.NOT_FOUND, resMessage.NOT_FOUND, {});
-        }
-
+        const data = await portfolioService.getPortfolioById({ id });
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, data);
     } catch (err) {
         console.error("Error in getPortfolioById:", err);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
-    }
+    };
 };
-
 export const deletePortfolio = async (req, res) => {
     try {
         const { id } = req.params;
-        const deleted = await portfolioService.deletePortfolio(id);
-
-        if (!deleted) {
-            return response.error(res, resStatusCode.NOT_FOUND, resMessage.NOT_FOUND, {});
-        }
-
+        await portfolioService.deletePortfolio({ id });
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.DELETED, {});
     } catch (err) {
-        console.error("Error in deleteReview:", error);
+        console.error("Error in deletePortfolio:", err);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
-    }
+    };
 };

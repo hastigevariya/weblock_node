@@ -6,9 +6,8 @@ export const addJobApplication = async (req, res) => {
     try {
         const fileName = req?.file?.filename;
         if (!fileName) {
-            return response.error(res, resStatusCode.CLIENT_ERROR, "File is required", {});
-        }
-
+            return response.error(res, resStatusCode.CLIENT_ERROR, resMessage.FILE_REQUIRED, {});
+        };
         const {
             fName, email, expYear, expMonth,
             currentCTC, expectedCTC, mobile, position
@@ -25,16 +24,14 @@ export const addJobApplication = async (req, res) => {
             position,
             file: fName
         };
-
         const { error } = jobApplicationValidation.validate(data);
         if (error) return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
-
         const newApplication = await jobApplicationService.addJobApplication(data);
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.DATA_ADDED, newApplication);
     } catch (error) {
         console.error("Error in addJobApplication:", error);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
-    }
+    };
 };
 
 
@@ -43,36 +40,37 @@ export const getAllJobApplications = async (req, res) => {
         const applications = await jobApplicationService.getAllJobApplications();
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, applications);
     } catch (error) {
+        console.error("Error in getAllJobApplications:", error);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
-    }
+    };
 };
 
 export const getJobApplicationById = async (req, res) => {
+    const { id } = req.params;
+    const { error } = idValidation.validate({ id });
+    if (error) {
+        return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
+    };
     try {
-        const { error } = idValidation.validate(req.params);
-        if (error) return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
-
-        const application = await jobApplicationService.getJobApplicationById(req.params.id);
-        if (!application) {
-            return response.error(res, resStatusCode.NOT_FOUND, "Job application not found", {});
-        }
+        const application = await jobApplicationService.getJobApplicationById({ id });
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, application);
     } catch (error) {
+        console.error("Error in getJobApplicationById:", error);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
-    }
+    };
 };
 
 export const deleteJobApplication = async (req, res) => {
+    const { id } = req.params;
+    const { error } = idValidation.validate({ id });
+    if (error) {
+        return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
+    };
     try {
-        const { error } = idValidation.validate(req.params);
-        if (error) return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
-
-        const deleted = await jobApplicationService.deleteJobApplication(req.params.id);
-        if (!deleted) {
-            return response.error(res, resStatusCode.NOT_FOUND, "Job application not found", {});
-        }
+        await jobApplicationService.deleteJobApplication({ id });
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.DELETED, {});
     } catch (error) {
+        console.error("Error in deleteJobApplication:", error);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
-    }
+    };
 };

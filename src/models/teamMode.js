@@ -15,6 +15,7 @@ const teamSchema = new Schema({
     { timestamps: true },
 );
 export const teamModel = model(dbTableName.TEAM, teamSchema);
+
 export const teamValidation = Joi.object({
     name: Joi.string().min(2).max(50).required().messages({
         "string.base": "Name must be a string",
@@ -43,8 +44,9 @@ export const teamValidation = Joi.object({
     }),
     photo: Joi.string().required().messages({
         "string.uri": "Photo must be a valid URL"
-    })
+    }),
 });
+
 export const idValidation = Joi.object({
     id: Joi.string().length(24).hex().required().messages({
         "any.required": "ID is required",

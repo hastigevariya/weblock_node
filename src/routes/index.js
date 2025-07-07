@@ -2,14 +2,15 @@
 import { Router } from "express";
 import auth from "./authRoutes.js";
 import enterpriseRoutes from "../routes/enterpriseRoutes.js";
-import homeRoutes from "../routes/homeRoutes.js"
-import aboutRoutes from "../routes/aboutRoutes.js"
-import teamRoutes from "../routes/teamRoutes.js"
-import reviewRoutes from "../routes/reviewRoutes.js"
-import portfolioRoutes from "../routes/portfolioRoutes.js"
+import homeRoutes from "../routes/homeRoutes.js";
+import aboutRoutes from "../routes/aboutRoutes.js";
+import teamRoutes from "../routes/teamRoutes.js";
+import reviewRoutes from "../routes/reviewRoutes.js";
+import portfolioRoutes from "../routes/portfolioRoutes.js";
 import careerRoutrs from "../routes/careerRoutrs.js";
-import addJobApplicationRoutes from "../routes/addJobApplicationRoutes.js"
-import blogRoutes from "../routes/blogRoutes.js"
+import addJobApplicationRoutes from "../routes/addJobApplicationRoutes.js";
+import blogRoutes from "../routes/blogRoutes.js";
+import contactRoutes from "../routes/contactRoutes.js";
 
 
 const router = Router();
@@ -22,6 +23,7 @@ router.use("/review", reviewRoutes);
 router.use("/portfolio", portfolioRoutes);
 router.use("/career", careerRoutrs);
 router.use("/addjobapplication", addJobApplicationRoutes);
-router.use("/blog", blogRoutes)
+router.use("/blog", blogRoutes);
+router.use("/contact", contactRoutes);
 
 export default router;

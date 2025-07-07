@@ -5,6 +5,7 @@ import {
 import response from "../utils/response.js";
 import { resStatusCode, resMessage } from "../utils/constants.js";
 import { teamService } from "../services/teamService.js";
+
 export const addTeamMember = async (req, res) => {
     try {
         let photo = req?.file?.filename;
@@ -31,55 +32,13 @@ export const updateTeamMember = async (req, res) => {
     };
     req.file?.photo?.filename && (updateData.photo = req.file?.photo?.filename);
     try {
-        // await teamService.updateTeamMember(id, updateData);
-        // return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.UPDATE_TEAM, {});
         const updated = await teamService.updateTeamMember(id, updateData);
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.UPDATE_TEAM, updated);
-
     } catch (error) {
         console.error('Error in updateTeamMember:', error);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
     };
 };
-// export const getAllTeamMember = async (req, res) => {
-//     try {
-//         const { page, limit } = req.query;
-//         const isPaginated = page && limit;
-//         const query = { isActive: true };
-//         const sort = { createdAt: -1 };
-//         let teams = [];
-//         let totalRecords = 0;
-//         let totalPages = 0;
-//         if (isPaginated) {
-//             const pageNum = parseInt(page);
-//             const limitNum = parseInt(limit);
-//             const skip = (pageNum - 1) * limitNum;
-//             [teams, totalRecords] = await Promise.all([
-//                 teamService.find(query).sort(sort).skip(skip).limit(limitNum).lean(),
-//                 teamService.countDocuments(query),
-//             ]);
-//             totalPages = Math.ceil(totalRecords / limitNum);
-//         } else {
-//             teams = await teamService.find(query).sort(sort).lean();
-//         };
-//         const formatted = teams.map(item => ({
-//             ...item,
-//             photo: item.photo ? `/teamMember/${item.photo}` : "",
-//         }));
-//         const responseData = isPaginated
-//             ? {
-//                 page: parseInt(page),
-//                 limit: parseInt(limit),
-//                 totalRecords,
-//                 totalPages,
-//                 records: formatted,
-//             } : formatted;
-//         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.TEAM_LIST, responseData);
-//     } catch (error) {
-//         console.error('Error in getAllTeamMember:', error);
-//         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
-//     };
-// };
 
 export const getAllTeamMember = async (req, res) => {
     try {
@@ -100,12 +59,11 @@ export const getAllTeamMember = async (req, res) => {
                 records: formatted,
             }
             : formatted;
-
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.TEAM_LIST, responseData);
     } catch (error) {
         console.error('Error in getAllTeamMember:', error);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
-    }
+    };
 };
 
 
@@ -117,7 +75,7 @@ export const getTeamMemberById = async (req, res) => {
         if (error) {
             return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
         };
-        const team = await teamService.findById(id);
+        const team = await teamService.findById({ id });
         if (team.photo) team.photo = `/teamMember/${team?.photo}`;
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.TEAM_SINGLE, team);
     } catch (error) {
@@ -132,13 +90,10 @@ export const deleteTeamMember = async (req, res) => {
         if (error) {
             return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
         };
-        // await teamService.findByIdAndUpdate(id, { isActive: false }, { new: true });
-
-        const deleted = await teamService.deleteTeamMember(id);
+        const deleted = await teamService.deleteTeamMember({ id });
         if (!deleted) {
-            return response.error(res, resStatusCode.NOT_FOUND, "Team member not found", {});
-        }
-
+            return response.error(res, resStatusCode.FORBIDDEN, resMessage.CONTACT_NOT_FOUND, {});
+        };
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.DELETE_TEAM, {});
     } catch (error) {
         console.error('Error in deleteTeamMember:', error);

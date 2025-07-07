@@ -2,6 +2,7 @@ import Joi from "joi";
 import mongoose, { model } from "mongoose";
 const { Schema } = mongoose;
 import { dbTableName } from "../utils/constants.js"
+
 const photoSchema = new Schema({
     imagePosition: { type: Number }, // 1: for(4) image, 2:single
     mediaType: { type: String, required: true }, // img, vdo
@@ -11,6 +12,7 @@ const photoSchema = new Schema({
     { timestamps: true },
 );
 export const homeImgVdoModel = model(dbTableName.HOME_PHOTO, photoSchema);
+
 export const homeImgVdoValidation = Joi.object({
     imagePosition: Joi.number().optional().messages({
         "number.base": "Image position must be a number",
@@ -25,6 +27,7 @@ export const homeImgVdoValidation = Joi.object({
         "any.required": "Media is required",
     }),
 });
+
 export const idValidation = Joi.object({
     id: Joi.string().length(24).hex().required().messages({
         "string.base": "ID must be a string",

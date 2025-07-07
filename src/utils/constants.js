@@ -20,6 +20,26 @@ export const resMessage = {
     FETCHED: "Fetched successfully",
     ADD_REVIEW_SUCCESS: "Review added successfully.",
     ADD_PORTFOLIO_SUCCESS: "Portfolio added successfully.",
+    FILE_REQUIRED: "File is required",
+    JOB_APPLICATION_NOT_FOUND: "Job application not found",
+    INVALID_DETAILS_JSON: `"details" must be a valid JSON array`,
+    INVALID_TABLE_JSON: `"table" must be a valid JSON array`,
+    INVALID_BLOG_ID: "Invalid blog ID",
+    BLOG_NOT_FOUND: "Blog not found",
+    CAREER_NOT_FOUND: "Career entry not found",
+    CAREER_DEACTIVATED: "Career deactivated successfully",
+    CONTACT_SUBMITTED: "Contact submitted successfully",
+    CONTACT_NOT_FOUND: "contact not found",
+    ADD_TEAM: "Team member added successfully",
+    UPDATE_TEAM: "Team member updated successfully",
+    DELETE_TEAM: "Team member deleted successfully",
+    TEAM_LIST: "Team list fetched successfully",
+    TEAM_SINGLE: "Team member details fetched successfully",
+    TEAM_NOT_FOUND: "Team member not found",
+    REVIEW_LIST: "Fetched all reviews",
+    REVIEW_NOT_FOUND: "Review not found",
+    REVIEW_DELETED: "Review deleted successfully",
+    INVALID_FEATURES_JSON: `"features" must be a valid JSON array`,
 
 };
 
@@ -51,7 +71,8 @@ export const dbTableName = {
     PORTFOLIO: "portfolio",
     CAREER: "career",
     JOB_APPLICATION: "jobapplication",
-    BLOG: "blog"
+    BLOG: "blog",
+    CONTACT: "contact"
 };
 
 

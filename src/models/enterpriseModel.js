@@ -10,6 +10,7 @@ const homeEnterpriseLogoSchema = new Schema(
     { timestamps: true },
 );
 export const homeEnterpriseModel = model(dbTableName.HOME_ENTERPRISE_LOGO, homeEnterpriseLogoSchema);
+
 export const enterpriseLogoValidation = Joi.object({
     image: Joi.string().required().messages({
         "string.base": "Image must be a string",
@@ -17,6 +18,7 @@ export const enterpriseLogoValidation = Joi.object({
         "any.required": "Image is required",
     }),
 });
+
 export const typeValidation = Joi.object({
     type: Joi.string().valid("web", "mobile").required().messages({
         "string.base": "Type must be a string",
@@ -25,6 +27,7 @@ export const typeValidation = Joi.object({
         "any.only": "Type must be either 'web' or 'mobile'",
     }),
 });
+
 export const idValidation = Joi.object({
     id: Joi.string().length(24).hex().required().messages({
         "string.base": "ID must be a string",

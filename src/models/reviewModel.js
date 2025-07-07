@@ -14,8 +14,24 @@ const reviewSchema = new Schema({
 export const ReviewModel = model(dbTableName.REVIEW, reviewSchema);
 
 export const reviewValidation = Joi.object({
-    name: Joi.string().required(),
-    position: Joi.string().required(),
-    review: Joi.string().required(),
-    photo: Joi.string().required()
+    name: Joi.string().required().messages({
+        "string.base": `"name" must be a string`,
+        "string.empty": `"name" is required`,
+        "any.required": `"name" is required`
+    }),
+    position: Joi.string().required().messages({
+        "string.base": `"position" must be a string`,
+        "string.empty": `"position" is required`,
+        "any.required": `"position" is required`
+    }),
+    review: Joi.string().required().messages({
+        "string.base": `"review" must be a string`,
+        "string.empty": `"review" is required`,
+        "any.required": `"review" is required`
+    }),
+    photo: Joi.string().required().messages({
+        "string.base": `"photo" must be a string`,
+        "string.empty": `"photo" is required`,
+        "any.required": `"photo" is required`
+    }),
 });
