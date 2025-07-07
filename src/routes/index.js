@@ -5,10 +5,11 @@ import enterpriseRoutes from "../routes/enterpriseRoutes.js";
 import homeRoutes from "../routes/homeRoutes.js"
 import aboutRoutes from "../routes/aboutRoutes.js"
 import teamRoutes from "../routes/teamRoutes.js"
-import review from "../routes/reviewRoutes.js"
-import portfolio from "../routes/portfolioRoutes.js"
-import career from "../routes/careerRoutrs.js";
-import addjobapplication from "../routes/addJobApplicationRoutes.js"
+import reviewRoutes from "../routes/reviewRoutes.js"
+import portfolioRoutes from "../routes/portfolioRoutes.js"
+import careerRoutrs from "../routes/careerRoutrs.js";
+import addJobApplicationRoutes from "../routes/addJobApplicationRoutes.js"
+import blogRoutes from "../routes/blogRoutes.js"
 
 
 const router = Router();
@@ -17,9 +18,10 @@ router.use("/enterprise", enterpriseRoutes);
 router.use("/home", homeRoutes);
 router.use("/about", aboutRoutes);
 router.use("/team", teamRoutes);
-router.use("/review", review);
-router.use("/portfolio", portfolio);
-router.use("/career", career);
-router.use("/addjobapplication", addjobapplication)
+router.use("/review", reviewRoutes);
+router.use("/portfolio", portfolioRoutes);
+router.use("/career", careerRoutrs);
+router.use("/addjobapplication", addJobApplicationRoutes);
+router.use("/blog", blogRoutes)
 
 export default router;

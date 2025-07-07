@@ -129,4 +129,31 @@ export const jobAppUpload = multer({
 }).single("file");  // field name must match in form-data
 
 
+const blogStorage = diskStorage({
+    destination: function (req, file, cb) {
+        const dir = './public/blogs';
+        mkdir(dir, { recursive: true }, (err) => cb(err, dir));
+    },
+    filename: function (req, file, cb) {
+        const ext = path.extname(file.originalname);
+        const first4Chars = file.originalname.slice(0, 4);
+        cb(null, `${Date.now()}-blog-${first4Chars}${ext}`);
+    }
+});
+
+export const blogMainImageUpload = multer({
+    storage: blogStorage,
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = /jpeg|jpg|png|webp/;
+        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = allowedTypes.test(file.mimetype);
+
+        if (extname && mimetype) {
+            return cb(null, true);
+        } else {
+            cb(new Error("Only images are allowed (jpeg, jpg, png, webp)"));
+        }
+    },
+    limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
+}).single("mainImage");
 
