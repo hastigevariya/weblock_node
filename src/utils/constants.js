@@ -72,7 +72,8 @@ export const dbTableName = {
     CAREER: "career",
     JOB_APPLICATION: "jobapplication",
     BLOG: "blog",
-    CONTACT: "contact"
+    CONTACT: "contact",
+    CASESTUDY: "casestudy"
 };
 
 

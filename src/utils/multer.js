@@ -157,3 +157,25 @@ export const blogMainImageUpload = multer({
     limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
 }).single("mainImage");
 
+
+const caseStudyStorage = diskStorage({
+    destination: (req, file, cb) => {
+        const dir = './public/caseStudy';
+        mkdir(dir, { recursive: true }, (err) => cb(err, dir));
+    },
+    filename: (req, file, cb) => {
+        const ext = path.extname(file.originalname);
+        const first4 = file.originalname.slice(0, 4);
+        cb(null, `${Date.now()}-case-${first4}${ext}`);
+    }
+});
+
+export const caseStudyUpload = multer({
+    storage: caseStudyStorage,
+    limits: { fileSize: 2 * 1024 * 1024 }
+}).fields([
+    { name: "mainImage", maxCount: 1 },
+    { name: "logo", maxCount: 1 },
+    { name: "image", maxCount: 1 },
+    { name: "typographyImage", maxCount: 1 }
+]);

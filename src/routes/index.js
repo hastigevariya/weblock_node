@@ -11,7 +11,7 @@ import careerRoutrs from "../routes/careerRoutrs.js";
 import addJobApplicationRoutes from "../routes/addJobApplicationRoutes.js";
 import blogRoutes from "../routes/blogRoutes.js";
 import contactRoutes from "../routes/contactRoutes.js";
-
+import caseStudyRoutes from "../routes/caseStudyRoutes.js"
 
 const router = Router();
 router.use("/auth", auth);
@@ -25,5 +25,6 @@ router.use("/career", careerRoutrs);
 router.use("/addjobapplication", addJobApplicationRoutes);
 router.use("/blog", blogRoutes);
 router.use("/contact", contactRoutes);
+router.use("/caseStudy", caseStudyRoutes)
 
 export default router;
