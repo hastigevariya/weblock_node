@@ -5,7 +5,7 @@ import { validateAccessToken } from "../middleware/auth.js";
 import { teamPhotoUpload } from "../utils/multer.js";
 
 // router.post("/addTeamMember", validateAccessToken, addTeamMember);
-router.post("/addTeamMember", teamPhotoUpload, addTeamMember);
+router.post("/addTeamMember", validateAccessToken, teamPhotoUpload, addTeamMember);
 router.put("/updateTeamMember/:id", teamPhotoUpload, validateAccessToken, updateTeamMember);
 router.get("/getAllTeamMember", validateAccessToken, getAllTeamMember);
 router.get("/getTeamMemberById/:id", validateAccessToken, getTeamMemberById);
