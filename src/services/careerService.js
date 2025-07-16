@@ -1,17 +1,17 @@
-import { Career } from "../models/careerModel.js";
+import { careerModel } from "../models/careerModel.js";
 
 export const careerService = {
     addCareer: async (data) => {
-        const newCareer = new Career(data);
+        const newCareer = new careerModel(data);
         return await newCareer.save();
     },
     getAllCareer: async () => {
-        return await Career.find({ isActive: true }).sort({ createdAt: -1 });
+        return await careerModel.find({ isActive: true }).sort({ createdAt: -1 });
     },
     getCareerById: async (id) => {
-        return await Career.findById(id);
+        return await careerModel.findById(id);
     },
     deleteCareer: async (id) => {
-        return await Career.findByIdAndUpdate(id, { isActive: false }, { new: true });
+        return await careerModel.findByIdAndUpdate(id, { isActive: false }, { new: true });
     },
 };

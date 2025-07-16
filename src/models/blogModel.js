@@ -1,8 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { model } from "mongoose";
+const { Schema } = mongoose;
 import { dbTableName } from "../utils/constants.js";
 import Joi from "joi";
 
-const detailSchema = new mongoose.Schema({
+const detailSchema = new Schema({
     paragraph: [{ type: String, required: true }],
     image: { type: String, default: null }
 }, { _id: false });
@@ -16,7 +17,7 @@ const blogSchema = new mongoose.Schema({
 }, { timestamps: true },
 );
 
-export const Blog = mongoose.model(dbTableName.BLOG, blogSchema);
+export const blogModel = model(dbTableName.BLOG, blogSchema);
 
 export const blogValidation = Joi.object({
     mainImage: Joi.string().required().messages({

@@ -1,15 +1,15 @@
-import { ReviewModel } from "../models/reviewModel.js";
+import { reviewModel } from "../models/reviewModel.js";
 
 export const reviewService = {
     async addReview(data) {
-        return await ReviewModel.create(data);
+        return await reviewModel.create(data);
     },
     async getAllReviews() {
-        return await ReviewModel.find({ isActive: true }).sort({ createdAt: -1 });
+        return await reviewModel.find({ isActive: true }).sort({ createdAt: -1 });
     },
 
     async deleteReviewById(id) {
-        return await ReviewModel.findByIdAndUpdate(
+        return await reviewModel.findByIdAndUpdate(
             id,
             { isActive: false },
             { new: true }

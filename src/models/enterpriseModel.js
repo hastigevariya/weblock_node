@@ -37,20 +37,3 @@ export const idValidation = Joi.object({
         "any.required": "ID is required",
     }),
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

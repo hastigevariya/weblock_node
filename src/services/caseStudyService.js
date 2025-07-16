@@ -1,16 +1,16 @@
-import { CaseStudy } from "../models/caseStudyMode.js";
+import { caseStudyModel } from "../models/caseStudyModel.js";
 
 export const caseStudyService = {
     async addCaseStudy(data) {
-        return await CaseStudy.create(data);
+        return await caseStudyModel.create(data);
     },
     async getAllCaseStudy() {
-        return await CaseStudy.find({ isActive: true }).sort({ createdAt: -1 });
+        return await caseStudyModel.find({ isActive: true }).sort({ createdAt: -1 });
     },
     async getCaseStudyById(id) {
-        return await CaseStudy.findById(id);
+        return await caseStudyModel.findById(id);
     },
     async softDeleteCaseStudy(id) {
-        return await CaseStudy.findByIdAndUpdate(id, { isActive: false }, { new: true });
+        return await caseStudyModel.findByIdAndUpdate(id, { isActive: false }, { new: true });
     }
 };

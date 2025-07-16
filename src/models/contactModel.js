@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { model } from "mongoose";
 const { Schema } = mongoose;
 import Joi from "joi";
 import { dbTableName } from "../utils/constants.js";
@@ -14,7 +14,7 @@ const contactSchema = new Schema({
     isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 
-export const Contact = mongoose.model(dbTableName.CONTACT, contactSchema);
+export const contactModel = model(dbTableName.CONTACT, contactSchema);
 
 export const contactValidation = Joi.object({
     fname: Joi.string().required().messages({
@@ -58,4 +58,19 @@ export const idValidation = Joi.object({
         "string.base": "ID must be a string",
         "any.required": "ID is required",
     })
+});
+
+const subscribeUserSchema = new Schema({
+    email: { type: String, required: true },
+    isActive: { type: Boolean, default: true },
+},
+    { timestamps: true }
+);
+export const subscribeUserModel = model(dbTableName.SUBSCRIBE, subscribeUserSchema);
+
+export const subscribeUserValidation = Joi.object({
+    email: Joi.string().email().required().messages({
+        'string.empty': 'Email is required.',
+        'string.email': 'Invalid email format.'
+    }),
 });

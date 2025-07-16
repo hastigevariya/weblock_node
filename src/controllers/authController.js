@@ -1,5 +1,4 @@
 import {
-    authModel,
     authRegisterValidation,
     authLoginValidation,
 } from "../models/authModel.js";

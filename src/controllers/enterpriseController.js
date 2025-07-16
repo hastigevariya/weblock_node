@@ -31,6 +31,7 @@ export const getAllEnterpriseLogo = async (req, res) => {
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
     };
 };
+
 export const deleteEnterpriseLogo = async (req, res) => {
     const { id } = req?.params;
     const { error } = idValidation.validate({ id });

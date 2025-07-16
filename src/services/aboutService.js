@@ -1,4 +1,4 @@
-import { aboutModel } from "../models/aboutMode.js";
+import { aboutModel } from "../models/aboutModel.js";
 
 export class aboutService {
     static async mediaExists(filter) {

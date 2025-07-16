@@ -2,6 +2,7 @@ import { homeImgVdoValidation, idValidation } from "../models/homeModel.js";
 import { homeService } from "../services/homeService.js";
 import { resStatusCode, resMessage } from "../utils/constants.js";
 import response from "../utils/response.js";
+
 export const addHomeImgVdo = async (req, res) => {
     try {
         const { imagePosition, mediaType } = req.body;
@@ -35,6 +36,7 @@ export const addHomeImgVdo = async (req, res) => {
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
     };
 };
+
 export const getAllHomeImgVdo = async (req, res) => {
     try {
         const homeImgVdo = await homeService.getAllHomeImgVdo();
@@ -44,6 +46,7 @@ export const getAllHomeImgVdo = async (req, res) => {
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
     };
 };
+
 export const deleteHomeImgVdo = async (req, res) => {
     const { id } = req.params;
     const { error } = idValidation.validate({ id });

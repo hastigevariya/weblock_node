@@ -1,14 +1,14 @@
-import { Contact } from "../models/contactMode.js";
+import { contactModel } from "../models/contactModel.js";
 
 export const contactService = {
     async addContact(data) {
-        return await Contact.create(data);
+        return await contactModel.create(data);
     },
     async getAllContacts() {
-        return await Contact.find({ isActive: true }).sort({ createdAt: -1 });
+        return await contactModel.find({ isActive: true }).sort({ createdAt: -1 });
     },
 
     async markContact(id) {
-        return await Contact.findByIdAndUpdate(id, { isMark: true }, { new: true });
+        return await contactModel.findByIdAndUpdate(id, { isMark: true }, { new: true });
     },
 };

@@ -1,7 +1,8 @@
-import { jobApplicationValidation, idValidation } from "../models/addJobApplicationModel.js";
+import { jobApplicationValidation, idValidation } from "../models/jobModel.js";
 import response from "../utils/response.js";
 import { resStatusCode, resMessage } from "../utils/constants.js";
-import { jobApplicationService } from "../services/addJobApplicationService.js";
+import { jobApplicationService } from "../services/jobService.js";
+
 export const addJobApplication = async (req, res) => {
     try {
         const fileName = req?.file?.filename;

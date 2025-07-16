@@ -2,6 +2,7 @@ const { Schema } = mongoose;
 import { dbTableName } from "../utils/constants.js";
 import mongoose, { model } from "mongoose";
 import Joi from 'joi';
+
 const teamSchema = new Schema({
     name: { type: String, required: true },
     position: { type: String, required: true },

@@ -39,7 +39,8 @@ export const resMessage = {
     REVIEW_LIST: "Fetched all reviews",
     REVIEW_NOT_FOUND: "Review not found",
     REVIEW_DELETED: "Review deleted successfully",
-    INVALID_FEATURES_JSON: `"features" must be a valid JSON array`,
+    INVALID_FEATURES_JSON: "features must be a valid JSON array",
+    SUBSCRIBE_SUCCESS: "done"
 
 };
 
@@ -73,7 +74,8 @@ export const dbTableName = {
     JOB_APPLICATION: "jobapplication",
     BLOG: "blog",
     CONTACT: "contact",
-    CASESTUDY: "casestudy"
+    CASESTUDY: "casestudy",
+    SUBSCRIBE: "subscribe"
 };
 
 

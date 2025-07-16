@@ -11,7 +11,7 @@ const reviewSchema = new Schema({
     isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 
-export const ReviewModel = model(dbTableName.REVIEW, reviewSchema);
+export const reviewModel = model(dbTableName.REVIEW, reviewSchema);
 
 export const reviewValidation = Joi.object({
     name: Joi.string().required().messages({

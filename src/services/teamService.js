@@ -1,4 +1,4 @@
-import { teamModel } from "../models/teamMode.js";
+import { teamModel } from "../models/teamModel.js";
 export class teamService {
     static async addTeam(data) {
         try {

@@ -1,4 +1,4 @@
-import { aboutValidation } from "../models/aboutMode.js";
+import { aboutValidation } from "../models/aboutModel.js";
 import { aboutService } from "../services/aboutService.js";
 import { resStatusCode, resMessage } from "../utils/constants.js";
 import response from "../utils/response.js";

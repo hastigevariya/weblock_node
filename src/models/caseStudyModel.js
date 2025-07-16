@@ -39,7 +39,7 @@ const caseStudySchema = new Schema({
     isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 
-export const CaseStudy = model(dbTableName.CASESTUDY, caseStudySchema);
+export const caseStudyModel = model(dbTableName.CASESTUDY, caseStudySchema);
 
 export const caseStudyValidation = Joi.object({
     mainImage: Joi.string().required().messages({

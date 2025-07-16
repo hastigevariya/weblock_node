@@ -12,7 +12,7 @@ const portfolioSchema = new Schema({
     isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 
-export const Portfolio = model(dbTableName.PORTFOLIO, portfolioSchema);
+export const portfolioModel = model(dbTableName.PORTFOLIO, portfolioSchema);
 
 export const portfolioValidation = Joi.object({
     image: Joi.string().required().messages({

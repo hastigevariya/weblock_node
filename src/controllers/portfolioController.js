@@ -1,4 +1,4 @@
-import { portfolioValidation } from "../models/portfolioMode.js";
+import { portfolioValidation } from "../models/portfolioModel.js";
 import response from "../utils/response.js";
 import { resStatusCode, resMessage } from "../utils/constants.js";
 import { portfolioService } from "../services/portfolioService.js";
@@ -27,6 +27,7 @@ export const addPortfolio = async (req, res) => {
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
     };
 };
+
 export const getAllPortfolio = async (req, res) => {
     try {
         const data = await portfolioService.getAllPortfolio();
@@ -35,6 +36,7 @@ export const getAllPortfolio = async (req, res) => {
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
     };
 };
+
 export const getPortfolioById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -45,6 +47,7 @@ export const getPortfolioById = async (req, res) => {
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
     };
 };
+
 export const deletePortfolio = async (req, res) => {
     try {
         const { id } = req.params;

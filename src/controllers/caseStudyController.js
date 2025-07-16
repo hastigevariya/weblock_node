@@ -1,15 +1,20 @@
-import { caseStudyValidation } from "../models/caseStudyMode.js";
+import { caseStudyValidation } from "../models/caseStudyModel.js";
 import { caseStudyService } from "../services/caseStudyService.js";
 import response from "../utils/response.js";
 import { resStatusCode, resMessage } from "../utils/constants.js";
-
+import { subscribeService } from "../services/subscribeService.js"
+import sendMail from '../../confing/mailer/index.js';
+import { getAllActiveAdminEmails } from "../utils/commonFunctions.js"
+const base_URL = process.env.BASE_URL
 export const addCaseStudy = async (req, res) => {
     try {
         const files = req.files;
+        console.log('files', files);
         const {
             title, p1, projectName, projectURL, portfolio, duration, industry, p2,
             challenge, stackTech, process, reviewName,
-            reviewPosition, reviewCount, reviewDescription, conclusion
+            reviewPosition, reviewCount, reviewDescription, conclusion,
+            description
         } = req.body;
 
         const data = {
@@ -24,11 +29,27 @@ export const addCaseStudy = async (req, res) => {
             reviewName, reviewPosition, reviewCount, reviewDescription,
             conclusion: JSON.parse(conclusion),
         };
+        console.log(data);
         const { error } = caseStudyValidation.validate(data);
+        console.log('error', error);
         if (error) {
             return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
         };
         const result = await caseStudyService.addCaseStudy(data);
+        // const subscribers = await subscribeUserModel.find({ isActive: true }).select("email");
+        // const subscriberEmails = subscribers.map(sub => sub.email);
+        const subscriberEmails = await subscribeService.getAllActiveEmails();
+        const adminEmails = await getAllActiveAdminEmails();
+        const allRecipients = [...adminEmails, ...subscriberEmails];
+        const shortDescription = description.split(" ").slice(0, 200).join(" ");
+        const subject = "📊 New Case Study Released by Weblock InfoSoft LLP - See What We Built!";
+        console.log('base_URL', base_URL);
+        sendMail("case_study", subject, allRecipients, {
+            title: projectName,
+            mainImage: '/caseStudy/' + data.mainImage,
+            description: shortDescription,
+            base_URL: base_URL,
+        });
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.ADDED, result);
     } catch (err) {
         console.error("Error in addCaseStudy:", err);

@@ -4,7 +4,7 @@ import {
     getAllJobApplications,
     getJobApplicationById,
     deleteJobApplication
-} from "../controllers/addJobApplicationController.js";
+} from "../controllers/jobController.js";
 import { validateAccessToken } from "../middleware/auth.js";
 import { jobAppUpload } from "../utils/multer.js";
 const router = express.Router();

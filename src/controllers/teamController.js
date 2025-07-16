@@ -1,7 +1,7 @@
 import {
     teamValidation,
     idValidation,
-} from "../models/teamMode.js";
+} from "../models/teamModel.js";
 import response from "../utils/response.js";
 import { resStatusCode, resMessage } from "../utils/constants.js";
 import { teamService } from "../services/teamService.js";

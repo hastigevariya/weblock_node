@@ -1,8 +1,9 @@
-import mongoose from "mongoose";
+import mongoose, { model } from "mongoose";
+const { Schema } = mongoose;
 import Joi from "joi";
 import { dbTableName } from "../utils/constants.js";
 
-const jobApplicationSchema = new mongoose.Schema({
+const jobApplicationSchema = new Schema({
     fName: { type: String, required: true },
     email: { type: String, required: true },
     expYear: { type: Number, required: true },
@@ -15,7 +16,7 @@ const jobApplicationSchema = new mongoose.Schema({
     isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 
-export const JobApplication = mongoose.model(dbTableName.JOB_APPLICATION, jobApplicationSchema);
+export const jobModel = model(dbTableName.JOB_APPLICATION, jobApplicationSchema);
 
 export const jobApplicationValidation = Joi.object({
     fName: Joi.string().required().messages({

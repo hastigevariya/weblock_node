@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { model } from "mongoose";
 const { Schema } = mongoose;
 import Joi from "joi";
 import { dbTableName } from "../utils/constants.js";
@@ -15,7 +15,8 @@ const careerSchema = new Schema({
     isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 
-export const Career = mongoose.model(dbTableName.CAREER, careerSchema);
+export const careerModel = model(dbTableName.CAREER, careerSchema);
+
 export const careerValidation = Joi.object({
     Title: Joi.string().required().messages({
         "string.base": `"jobTitle" must be a string`,

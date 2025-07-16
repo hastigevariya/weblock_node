@@ -5,11 +5,11 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 const router = await import("./src/routes/index.js");
 import connectDB from "./db/dbconnect.js";
+connectDB();
 const dotenv = await import("dotenv");
-dotenv.config();
+dotenv.config({ quiet: true });
 
 const port = process.env.PORT || 5001;
-connectDB();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

@@ -8,7 +8,7 @@ import teamRoutes from "../routes/teamRoutes.js";
 import reviewRoutes from "../routes/reviewRoutes.js";
 import portfolioRoutes from "../routes/portfolioRoutes.js";
 import careerRoutrs from "../routes/careerRoutrs.js";
-import addJobApplicationRoutes from "../routes/addJobApplicationRoutes.js";
+import jobRoutes from "../routes/jobRoutes.js";
 import blogRoutes from "../routes/blogRoutes.js";
 import contactRoutes from "../routes/contactRoutes.js";
 import caseStudyRoutes from "../routes/caseStudyRoutes.js"
@@ -22,7 +22,7 @@ router.use("/team", teamRoutes);
 router.use("/review", reviewRoutes);
 router.use("/portfolio", portfolioRoutes);
 router.use("/career", careerRoutrs);
-router.use("/addjobapplication", addJobApplicationRoutes);
+router.use("/addjobapplication", jobRoutes);
 router.use("/blog", blogRoutes);
 router.use("/contact", contactRoutes);
 router.use("/caseStudy", caseStudyRoutes)
