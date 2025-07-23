@@ -40,7 +40,9 @@ export const resMessage = {
     REVIEW_NOT_FOUND: "Review not found",
     REVIEW_DELETED: "Review deleted successfully",
     INVALID_FEATURES_JSON: "features must be a valid JSON array",
-    SUBSCRIBE_SUCCESS: "done"
+    SUBSCRIBE_SUCCESS: "done",
+    ADD_SUCCESS: "Blog added successfully.",
+    DATA_ADDED: "Data added successfully.",
 
 };
 

@@ -88,7 +88,7 @@ export const deleteBlog = async (req, res) => {
             return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
         };
         await blogService.deleteBlog({ id });
-        return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.DELETED, {});
+        return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, {});
     } catch (error) {
         console.error("Error in deleteBlog:", error);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
