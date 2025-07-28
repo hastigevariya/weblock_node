@@ -19,6 +19,10 @@ app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 
+app.get('/start', (req, res) => {
+    res.send(`<h1>Hello Weblock<h1/>`);
+});
+
 app.use(express.static(join(__dirname, "public")));
 app.use("/api", router.default);
 

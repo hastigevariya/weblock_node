@@ -20,6 +20,7 @@
   "homepage": "https://github.com/hastigevariya/weblock_node#readme",
   "description": "",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.850.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
