@@ -60,5 +60,9 @@ export const jobApplicationValidation = Joi.object({
 });
 
 export const idValidation = Joi.object({
-    id: Joi.string().hex().length(24).required()
+    id: Joi.string().hex().length(24).required().messages({
+        'string.length': 'ID must be exactly 24 characters long.',
+        'string.hex': 'ID must be a valid hex string.',
+        'any.required': 'ID is required.'
+    }),
 });

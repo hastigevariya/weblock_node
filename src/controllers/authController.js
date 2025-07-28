@@ -51,3 +51,73 @@ export const login = async (req, res) => {
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
     };
 };
+
+// export const getGoogleOAuthUrl = async (req, res) => {
+//     try {
+//         const redirectUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${process.env.GOOGLE_REDIRECT_URL}&scope=openid%20email%20profile`;
+//         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.GOOGLE_OAUTH_URL_GENERATED, { url: redirectUrl });
+//     } catch (error) {
+//         console.error("Error in getGoogleOAuthUrl:", error);
+//         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
+//     }
+// };
+
+
+// export const googleOAuthLogin = async (req, res) => {
+//     const { error } = googleOAuthValidation.validate(req.body);
+//     if (error) {
+//         return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message);
+//     }
+
+//     const { code } = req.body;
+//     const decodedCode = decodeURIComponent(code);
+
+//     try {
+//         const tokenResponse = await axios.post("https://oauth2.googleapis.com/token", {
+//             code: decodedCode,
+//             client_id: process.env.GOOGLE_CLIENT_ID,
+//             client_secret: process.env.GOOGLE_CLIENT_SECRET,
+//             redirect_uri: process.env.GOOGLE_REDIRECT_URL,
+//             grant_type: "authorization_code",
+//         });
+
+//         const { access_token } = tokenResponse.data;
+
+//         const userInfoResponse = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+//             headers: {
+//                 Authorization: `Bearer ${access_token}`,
+//             },
+//         });
+
+//         const user = userInfoResponse.data;
+
+//         let existingUser = await userModel.findOne({ email: user.email });
+
+//         if (!existingUser) {
+//             existingUser = new userModel({
+//                 fname: user.given_name,
+//                 lname: user.family_name,
+//                 email: user.email,
+//                 profilePhoto: user.picture,
+//             });
+//             await existingUser.save();
+//         }
+
+//         const token = await generateJWToken({ _id: existingUser._id });
+
+//         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.GOOGLE_AUTH_SUCCESS, {
+//             _id: existingUser._id,
+//             token: token,
+//         });
+
+//     } catch (error) {
+//         if (
+//             error.response?.data?.error === "invalid_grant" ||
+//             error.response?.data?.error_description === "Bad Request"
+//         ) {
+//             return response.error(res, resStatusCode.FORBIDDEN, resMessage.AUTHORIZATION_CODE_EXPIRED, {});
+//         }
+//         console.error("Error in googleOAuthLogin:", error.response?.data || error);
+//         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
+//     }
+// };

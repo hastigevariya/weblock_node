@@ -6,9 +6,9 @@ import { teamPhotoUpload } from "../utils/multer.js";
 
 // router.post("/addTeamMember", validateAccessToken, addTeamMember);
 router.post("/addTeamMember", validateAccessToken, teamPhotoUpload, addTeamMember);
-router.put("/updateTeamMember/:id", teamPhotoUpload, validateAccessToken, updateTeamMember);
-router.get("/getAllTeamMember", validateAccessToken, getAllTeamMember);
-router.get("/getTeamMemberById/:id", validateAccessToken, getTeamMemberById);
-router.delete("/deleteTeamMember/:id", validateAccessToken, deleteTeamMember);
+router.put("/updateTeamMember/:id", teamPhotoUpload, updateTeamMember);
+router.get("/getAllTeamMember", getAllTeamMember);
+router.get("/getTeamMemberById/:id", getTeamMemberById);
+router.delete("/deleteTeamMember/:id", deleteTeamMember);
 
 export default router;

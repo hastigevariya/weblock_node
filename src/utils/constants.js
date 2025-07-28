@@ -26,6 +26,7 @@ export const resMessage = {
     INVALID_TABLE_JSON: `"table" must be a valid JSON array`,
     INVALID_BLOG_ID: "Invalid blog ID",
     BLOG_NOT_FOUND: "Blog not found",
+    UPDATE_BLOG: "Blog member updated successfully",
     CAREER_NOT_FOUND: "Career entry not found",
     CAREER_DEACTIVATED: "Career deactivated successfully",
     CONTACT_SUBMITTED: "Contact submitted successfully",
@@ -43,7 +44,8 @@ export const resMessage = {
     SUBSCRIBE_SUCCESS: "done",
     ADD_SUCCESS: "Blog added successfully.",
     DATA_ADDED: "Data added successfully.",
-
+    UPDATE_CASE_STUDY: "update case study successfully",
+    CAREER_NOT_FOUND :"Career not found"
 };
 
 export const resStatusCode = {

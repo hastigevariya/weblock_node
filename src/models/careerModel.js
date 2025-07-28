@@ -4,7 +4,7 @@ import Joi from "joi";
 import { dbTableName } from "../utils/constants.js";
 
 const careerSchema = new Schema({
-    Title: { type: String, required: true },
+    title: { type: String, required: true },
     experience: { type: String, required: true },
     position: { type: Number, required: true },
     jobLocation: { type: String, required: true },
@@ -18,7 +18,7 @@ const careerSchema = new Schema({
 export const careerModel = model(dbTableName.CAREER, careerSchema);
 
 export const careerValidation = Joi.object({
-    Title: Joi.string().required().messages({
+    title: Joi.string().required().messages({
         "string.base": `"jobTitle" must be a string`,
         "any.required": `"jobTitle" is a required field`,
     }),

@@ -22,7 +22,38 @@ export const addContact = async (req, res) => {
 
 export const getAllContacts = async (req, res) => {
     try {
-        const data = await contactService.getAllContacts();
+           const { page, limit } = req.query;
+                      const isPaginated = page && limit;
+                      const query = { isActive: true };
+                      const sort = { createdAt: -1 };
+              
+                      let contact = [];
+                      let totalCount = 0;
+                      let totalPages = 0;
+              
+                      if (isPaginated) {
+                          const pageNum = parseInt(page);
+                          const limitNum = parseInt(limit);
+                          const skip = (pageNum - 1) * limitNum;
+              
+                          [contact, totalCount] = await Promise.all([
+                              contactService.getAllContacts(query, sort, skip, limitNum),
+              
+                              contactService.ContactCount(query),
+                          ]);
+                          totalPages = Math.ceil(totalCount / limitNum);
+              
+                          return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, {
+                              page: pageNum,
+                              limit: limitNum,
+                              totalRecords: totalCount,
+                              totalPages,
+                              records: contact,
+                          });
+                      };
+                      const result = await contactService.getAllContacts(query, sort)
+            
+        // const data = await contactService.getAllContacts();
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, data);
     } catch (err) {
         console.error("Error in getAllContacts:", err);
@@ -77,23 +108,39 @@ export const addSubscribe = async (req, res) => {
 
 export const getAllSubscribe = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
-        const skip = (page - 1) * limit;
-        const query = { isActive: true };
-        const sort = { createdAt: -1 };
-        const [subscribe, totalRecords] = await Promise.all([
-            subscribeService.find(query).sort(sort).skip(skip).limit(limit).lean(),
-            subscribeService.countDocuments(query),
-        ]);
-        const totalPages = Math.ceil(totalRecords / limit);
-        return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.SUBSCRIBE_LIST, {
-            page,
-            limit,
-            totalRecords,
-            totalPages,
-            records: subscribe,
-        });
+               const { page, limit } = req.query;
+                      const isPaginated = page && limit;
+                      const query = { isActive: true };
+                      const sort = { createdAt: -1 };
+              
+                      let subscribe = [];
+                      let totalCount = 0;
+                      let totalPages = 0;
+              
+                      if (isPaginated) {
+                          const pageNum = parseInt(page);
+                          const limitNum = parseInt(limit);
+                          const skip = (pageNum - 1) * limitNum;
+              
+                          [subscribe, totalCount] = await Promise.all([
+                              subscribeService.getAllSubscribe(query, sort, skip, limitNum),
+              
+                              subscribeService.SubscribeCount(query),
+                          ]);
+                          totalPages = Math.ceil(totalCount / limitNum);
+              
+                          return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, {
+                              page: pageNum,
+                              limit: limitNum,
+                              totalRecords: totalCount,
+                              totalPages,
+                              records: subscribe,
+                          });
+                      };
+                      const result = await subscribeService.getAllSubscribe(query, sort)
+      
+              // const blogs = await blogService.getAllBlogs();
+              return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, result);
     } catch (error) {
         console.error('Error in getAllSubscribe:', error);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});

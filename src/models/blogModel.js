@@ -5,10 +5,11 @@ import Joi from "joi";
 
 const detailSchema = new Schema({
     paragraph: [{ type: String, required: true }],
-    image: { type: String, default: null }
+    image: { type: String, default: '' }
 }, { _id: false });
 
 const blogSchema = new mongoose.Schema({
+    title: { type: String, required: true },
     mainImage: { type: String, required: true },
     details: { type: [detailSchema] },
     table: { type: [String] },
@@ -20,6 +21,10 @@ const blogSchema = new mongoose.Schema({
 export const blogModel = model(dbTableName.BLOG, blogSchema);
 
 export const blogValidation = Joi.object({
+    title: Joi.string().required().messages({
+        "string.base": `"title" must be a string`,
+        "any.required": `"title" is a required field`,
+    }),
     mainImage: Joi.string().required().messages({
         "string.base": `"mainImage" must be a string`,
         "any.required": `"mainImage" is a required field`,
@@ -33,9 +38,7 @@ export const blogValidation = Joi.object({
                 "array.base": `"paragraph" must be an array of strings`,
                 "any.required": `"paragraph" is a required field`,
             }),
-        image: Joi.string().allow(null, "").optional().messages({
-            "string.base": `"image" must be a string or null`,
-        }),
+        image: Joi.string().optional(),
     }).messages({
         "object.base": `"details" item must be an object with paragraph and optional image`,
     })).required().messages({

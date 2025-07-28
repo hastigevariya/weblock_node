@@ -8,9 +8,12 @@ import { teamService } from "../services/teamService.js";
 
 export const addTeamMember = async (req, res) => {
     try {
-        let photo = req?.file?.filename;
+        // let photo = req?.file?.filename;
+        const photo = req.uploadedImages.find(file => file.field === 'photo');
+        req.body.photo = photo?.s3Url;
+
         req.body = req.body || {};
-        req.body.photo = photo;
+        // req.body.photo = photo;
         const { error } = teamValidation.validate(req.body);
         if (error) {
             return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
@@ -30,7 +33,10 @@ export const updateTeamMember = async (req, res) => {
     if (error) {
         return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
     };
-    req.file?.photo?.filename && (updateData.photo = req.file?.photo?.filename);
+    const photo = req?.uploadedImages.find(file => file.field === 'photo');
+    req.body.photo = photo?.s3Url;
+
+    req.body.photo && (updateData.photo = req.body.photo);
     try {
         const updated = await teamService.updateTeamMember(id, updateData);
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.UPDATE_TEAM, updated);
@@ -43,23 +49,37 @@ export const updateTeamMember = async (req, res) => {
 export const getAllTeamMember = async (req, res) => {
     try {
         const { page, limit } = req.query;
-        const result = await teamService.getAllTeamMembers({ page, limit });
+        const isPaginated = page && limit;
+        const query = { isActive: true };
+        const sort = { createdAt: -1 };
 
-        const formatted = result.records.map(item => ({
-            ...item,
-            photo: item.photo ? `/teamMember/${item.photo}` : "",
-        }));
+        let teamMember = [];
+        let totalCount = 0;
+        let totalPages = 0;
 
-        const responseData = result.paginated
-            ? {
-                page: result.page,
-                limit: result.limit,
-                totalRecords: result.totalRecords,
-                totalPages: result.totalPages,
-                records: formatted,
-            }
-            : formatted;
-        return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.TEAM_LIST, responseData);
+        if (isPaginated) {
+            const pageNum = parseInt(page);
+            const limitNum = parseInt(limit);
+            const skip = (pageNum - 1) * limitNum;
+
+            [teamMember, totalCount] = await Promise.all([
+                teamService.getAllTeamMembers(query, sort, skip, limitNum),
+
+                teamService.TeamMembersCount(query),
+            ]);
+            totalPages = Math.ceil(totalCount / limitNum);
+
+            return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, {
+                page: pageNum,
+                limit: limitNum,
+                totalRecords: totalCount,
+                totalPages,
+                records: teamMember,
+            });
+        };
+        const result = await teamService.getAllTeamMembers(query, sort)
+
+        return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.TEAM_LIST, result);
     } catch (error) {
         console.error('Error in getAllTeamMember:', error);
         return response.error(res, resStatusCode.INTERNAL_SERVER_ERROR, resMessage.INTERNAL_SERVER_ERROR, {});
@@ -75,8 +95,8 @@ export const getTeamMemberById = async (req, res) => {
         if (error) {
             return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
         };
-        const team = await teamService.findById({ id });
-        if (team.photo) team.photo = `/teamMember/${team?.photo}`;
+        const team = await teamService.findById(id );
+        // if (team.photo) team.photo = `/teamMember/${team?.photo}`;
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.TEAM_SINGLE, team);
     } catch (error) {
         console.error('Error in getTeamMemberById:', error);
@@ -90,7 +110,7 @@ export const deleteTeamMember = async (req, res) => {
         if (error) {
             return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
         };
-        const deleted = await teamService.deleteTeamMember({ id });
+        const deleted = await teamService.deleteTeamMember(id );
         if (!deleted) {
             return response.error(res, resStatusCode.FORBIDDEN, resMessage.CONTACT_NOT_FOUND, {});
         };

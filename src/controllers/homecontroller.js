@@ -6,7 +6,10 @@ import response from "../utils/response.js";
 export const addHomeImgVdo = async (req, res) => {
     try {
         const { imagePosition, mediaType } = req.body;
-        const media = req?.file?.filename;
+        // const media = req?.file?.filename;
+    const media = req.uploadedImages.find(file => file.field === 'media');
+     req.body.media = media?.s3Url;
+
         const { error } = homeImgVdoValidation.validate({ imagePosition, mediaType, media });
         if (error) {
             return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
@@ -39,7 +42,38 @@ export const addHomeImgVdo = async (req, res) => {
 
 export const getAllHomeImgVdo = async (req, res) => {
     try {
-        const homeImgVdo = await homeService.getAllHomeImgVdo();
+                 const { page, limit } = req.query;
+                        const isPaginated = page && limit;
+                        const query = { isActive: true };
+                        const sort = { createdAt: -1 };
+                
+                        let home = [];
+                        let totalCount = 0;
+                        let totalPages = 0;
+                
+                        if (isPaginated) {
+                            const pageNum = parseInt(page);
+                            const limitNum = parseInt(limit);
+                            const skip = (pageNum - 1) * limitNum;
+                
+                            [home, totalCount] = await Promise.all([
+                                homeService.getAllHomeImgVdo(query, sort, skip, limitNum),
+                
+                                homeService.HomeImgVdoCount(query),
+                            ]);
+                            totalPages = Math.ceil(totalCount / limitNum);
+                
+                            return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.FETCHED, {
+                                page: pageNum,
+                                limit: limitNum,
+                                totalRecords: totalCount,
+                                totalPages,
+                                records: home,
+                            });
+                        };
+                        const result = await homeService.getAllHomeImgVdo(query, sort)
+    
+        // const homeImgVdo = await homeService.getAllHomeImgVdo();
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.IMAGE_VIDEO_LIST, homeImgVdo);
     } catch (error) {
         console.error('Error in getAllHomeImgVdo:', error);

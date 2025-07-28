@@ -5,17 +5,19 @@ import response from "../utils/response.js";
 
 export const addAboutMedia = async (req, res) => {
     try {
-        const media = req?.file?.filename;
-        const { mediaType } = req.body;
-        const { error } = aboutValidation.validate({ mediaType });
+        // const media = req?.file?.filename;
+        const media = req.uploadedImages.find(file => file.field === 'media');
+        req.body.media = media?.s3Url;
+        // const { mediaType } = req.body;
+        const { error } = aboutValidation.validate({ media: req.body.media });
         if (error) {
             return response.error(res, resStatusCode.CLIENT_ERROR, error.details[0].message, {});
         };
-        const count = await aboutService.mediaExists({ mediaType, isActive: true });
+        const count = await aboutService.mediaExists({ isActive: true });
         if (count >= 1) {
-            await aboutService.deactivateLastMedia({ mediaType, isActive: true });
+            await aboutService.deactivateLastMedia({ isActive: true });
         };
-        const saved = await aboutService.addMedia({ media, mediaType });
+        const saved = await aboutService.addMedia({ media: req.body.media });
         return response.success(res, resStatusCode.ACTION_COMPLETE, resMessage.ADD_ENTERPRISE_LOGO, saved);
     } catch (err) {
         console.error("Error in addAboutMedia:", err);

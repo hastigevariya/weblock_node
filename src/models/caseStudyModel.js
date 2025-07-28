@@ -5,12 +5,11 @@ import { dbTableName } from "../utils/constants.js"
 
 const caseStudySchema = new Schema({
     mainImage: { type: String, required: true },
+    description: { type: String, required: true },
     logo: { type: String, required: true },
-    image: { type: String, required: true },
-    title: { type: String, required: true },
-    p1: { type: String, required: true },
+    colorImage: { type: String, required: true },
     projectName: { type: String, required: true },
-    portfolio: { type: String, required: true },
+    platform: { type: String, required: true },
     duration: { type: String, required: true },
     industry: { type: String, required: true },
     p2: { type: String, required: true },
@@ -29,11 +28,12 @@ const caseStudySchema = new Schema({
             p: { type: String },
         }
     ],
-    reviewName: { type: String, required: true },
-    reviewPosition: { type: String, required: true },
-    reviewCount: { type: Number, required: true },
-    reviewDescription: { type: String, required: true },
+    // reviewName: { type: String, required: true },
+    // reviewPosition: { type: String, required: true },
+    // reviewCount: { type: Number, required: true },
+    // reviewDescription: { type: String, required: true },
     typographyImage: { type: String, required: true },
+    mobTypographyImage: { type: String, required: true },
     conclusion: [String],
     projectURL: { type: String, required: true },
     isActive: { type: Boolean, default: true },
@@ -47,25 +47,20 @@ export const caseStudyValidation = Joi.object({
         "string.empty": "Main Image is required",
         "any.required": "Main Image is required"
     }),
+    description: Joi.string().required().messages({
+        "string.base": "Description must be a string",
+        "string.empty": "Description is required",
+        "any.required": "Description is required"
+    }),
     logo: Joi.string().required().messages({
         "string.base": "Logo must be a string",
         "string.empty": "Logo is required",
         "any.required": "Logo is required"
     }),
-    image: Joi.string().required().messages({
-        "string.base": "Image must be a string",
-        "string.empty": "Image is required",
-        "any.required": "Image is required"
-    }),
-    title: Joi.string().required().messages({
-        "string.base": `"title" must be a string`,
-        "string.empty": `"title" is required`,
-        "any.required": `"title" is required`
-    }),
-    p1: Joi.string().required().messages({
-        "string.base": `"p1" must be a string`,
-        "string.empty": `"p1" is required`,
-        "any.required": `"p1" is required`
+    colorImage: Joi.string().required().messages({
+        "string.base": "Color Image must be a string",
+        "string.empty": "Color Image is required",
+        "any.required": "Color Image is required"
     }),
     projectName: Joi.string().required().messages({
         "string.base": `"projectName" must be a string`,
@@ -78,10 +73,10 @@ export const caseStudyValidation = Joi.object({
         "any.required": `"projectURL" is required`,
         "string.uri": `"projectURL" must be a valid URL`
     }),
-    portfolio: Joi.string().required().messages({
-        "string.base": `"portfolio" must be a string`,
-        "string.empty": `"portfolio" is required`,
-        "any.required": `"portfolio" is required`
+    platform: Joi.string().required().messages({
+        "string.base": `"platform" must be a string`,
+        "string.empty": `"platform" is required`,
+        "any.required": `"platform" is required`
     }),
     duration: Joi.string().required().messages({
         "string.base": `"duration" must be a string`,
@@ -133,27 +128,41 @@ export const caseStudyValidation = Joi.object({
         "string.empty": "Typography Image is required",
         "any.required": "Typography Image is required"
     }),
-    reviewName: Joi.string().required().messages({
-        "string.base": `"reviewName" must be a string`,
-        "string.empty": `"reviewName" is required`,
-        "any.required": `"reviewName" is required`
+    mobTypographyImage: Joi.string().required().messages({
+        "string.base": "Mobile Typography Image must be a string",
+        "string.empty": "Mobile Typography Image is required",
+        "any.required": "Mobile Typography Image is required"
     }),
-    reviewPosition: Joi.string().required().messages({
-        "string.base": `"reviewPosition" must be a string`,
-        "string.empty": `"reviewPosition" is required`,
-        "any.required": `"reviewPosition" is required`
-    }),
-    reviewCount: Joi.number().required().messages({
-        "number.base": `"reviewCount" must be a number`,
-        "any.required": `"reviewCount" is required`
-    }),
-    reviewDescription: Joi.string().required().messages({
-        "string.base": `"reviewDescription" must be a string`,
-        "string.empty": `"reviewDescription" is required`,
-        "any.required": `"reviewDescription" is required`
-    }),
+    // reviewName: Joi.string().required().messages({
+    //     "string.base": `"reviewName" must be a string`,
+    //     "string.empty": `"reviewName" is required`,
+    //     "any.required": `"reviewName" is required`
+    // }),
+    // reviewPosition: Joi.string().required().messages({
+    //     "string.base": `"reviewPosition" must be a string`,
+    //     "string.empty": `"reviewPosition" is required`,
+    //     "any.required": `"reviewPosition" is required`
+    // }),
+    // reviewCount: Joi.number().required().messages({
+    //     "number.base": `"reviewCount" must be a number`,
+    //     "any.required": `"reviewCount" is required`
+    // }),
+    // reviewDescription: Joi.string().required().messages({
+    //     "string.base": `"reviewDescription" must be a string`,
+    //     "string.empty": `"reviewDescription" is required`,
+    //     "any.required": `"reviewDescription" is required`
+    // }),
     conclusion: Joi.array().items(Joi.string()).required().messages({
         "array.base": `"conclusion" must be an array of strings`,
         "any.required": `"conclusion" is required`
+    }),
+});
+export const idValidation = Joi.object({
+    id: Joi.string().length(24).hex().required().messages({
+        "string.base": "ID must be a string",
+        "string.empty": "ID is required",
+        "string.length": "ID must be exactly 24 characters",
+        "string.hex": "ID must be a valid hexadecimal string",
+        "any.required": "ID is required",
     }),
 });

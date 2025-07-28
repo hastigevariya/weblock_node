@@ -44,3 +44,25 @@ export const authLoginValidation = Joi.object({
         "any.required": "Password is required",
     }),
 });
+
+// export const googleOAuthValidation = Joi.object({
+//     code: Joi.string().trim().required().messages({
+//         "string.empty": "Authorization code is required",
+//         "any.required": "Authorization code is required",
+//     }),
+// });
+
+// export const userLoginValidation = Joi.object({
+//     email: Joi.string().email().trim().lowercase().required().messages({
+//         "string.empty": "Email is required",
+//         "string.email": "Please provide a valid email address",
+//         "any.required": "Email is required",
+//     }),
+//     password: Joi.string().min(6).max(30).required().messages({
+//         "string.empty": "Password is required",
+//         "string.min": "Password must be at least 6 characters",
+//         "any.required": "Password is required",
+//     }),
+//     fcm: Joi.string().optional(),
+//     isActive: Joi.boolean().default(true),
+// });
