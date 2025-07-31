@@ -1,6 +1,6 @@
-import multer, { diskStorage } from 'multer';
-import { mkdir } from "fs";
-import path from 'path';
+// import multer, { diskStorage } from 'multer';
+// import { mkdir } from "fs";
+// import path from 'path';
 // const enterpriseLogoStorage = diskStorage({
 //     destination: function (req, file, cb) {
 //         const dir = './public/enterpriseLogo';
